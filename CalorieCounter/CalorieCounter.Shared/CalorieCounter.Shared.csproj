@@ -110,11 +110,12 @@
     <Compile Include="Models\LogEntry.cs" />
     <Compile Include="Models\LogEntryFoodItem.cs" />
     <Compile Include="Models\MealType.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\LogEntryDate.cs" />
     <Compile Include="Models\UserWeight.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

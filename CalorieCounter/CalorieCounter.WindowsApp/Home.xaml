@@ -1,13 +1,11 @@
-﻿<Page
-    x:Class="CalorieCounter.WindowsApp.Home"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CalorieCounter.WindowsApp"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    DataContext="{Binding Home, Source={StaticResource Locator}}">
-
+﻿<Page x:Class="CalorieCounter.WindowsApp.Home"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="using:CalorieCounter.WindowsApp"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+		DataContext="{Binding Home, Source={StaticResource Locator}}">
 	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="120"/>
@@ -21,17 +19,20 @@
 		<Grid Grid.Column="1" Grid.Row="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="50"/>
 				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="50"/>
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"/>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="50"/>
 			</Grid.RowDefinitions>
+			<!-- Date -->
 			<Border Grid.Row="1" Style="{StaticResource HomeDateBorderStyle}">
-				<TextBlock Text="{Binding DateFormatted}" Style="{StaticResource HomeDateTextStyle}"/>
+				<TextBlock Text="{Binding CurrentLogEntryDate.DateFormatted}" Style="{StaticResource HomeDateTextStyle}"/>
 			</Border>
-			<Grid Grid.Column="1" Grid.RowSpan="2">
+			<Grid Grid.Column="2" Grid.RowSpan="2">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="Auto"/>
@@ -40,19 +41,31 @@
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-				
+				<!-- Daily Target -->
 				<Border Grid.ColumnSpan="2" Style="{StaticResource DailyTargetBorderStyle}">
-					<StackPanel Orientation="Vertical">
-						<TextBlock Text="Daily Target" Style="{StaticResource DailyTargetTextStyle}"/>
+					<StackPanel>
+						<TextBlock Text="Daily Target" Style="{StaticResource DailyTargetHeaderTextStyle}"/>
 						<Border Style="{StaticResource DailyTargetDividerBorderStyle}"/>
-						<TextBlock Text="{Binding User.DailyTargets[0].Calories}" Style="{StaticResource DailyTargetCaloriesTextStyle}"/>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{Binding CurrentLogEntryDate.DailyTarget.Calories}" Style="{StaticResource DailyTargetTextStyle}"/>
+							<TextBlock Text=" Calories" Style="{StaticResource DailyTargetTextStyle}"/>
+						</StackPanel>
 					</StackPanel>
 				</Border>
-
-				<TextBlock Grid.Row="1" Text="{Binding User.Weights[0].Weight}"/>
-
-				<TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding User.TotalCalories}"/>
-
+				<!-- Weight -->
+				<Border Grid.Row="1" Style="{StaticResource WeightBorderStyle}">
+					<StackPanel Style="{StaticResource WeightStackPanelStyle}">
+						<TextBlock Text="Weight" Style="{StaticResource WeightHeaderTextStyle}"/>
+						<TextBlock Text="{Binding CurrentLogEntryDate.Weight.Weight}" Style="{StaticResource WeightTextStyle}"/>
+					</StackPanel>
+				</Border>
+				<!-- Total Calories -->
+				<Border Grid.Column="1" Grid.Row="1" Style="{StaticResource TotalCaloriesBorderStyle}">
+					<StackPanel>
+						<TextBlock Text="{Binding CurrentLogEntryDate.TotalCalories}" Style="{StaticResource TotalCaloriesTextStyle}"/>
+						<TextBlock Text="Calories" Style="{StaticResource TotalCaloriesTextStyle}"/>
+					</StackPanel>
+				</Border>
 			</Grid>
 		</Grid>
 	</Grid>

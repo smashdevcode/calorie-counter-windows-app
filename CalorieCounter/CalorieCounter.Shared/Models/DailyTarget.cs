@@ -13,7 +13,7 @@ namespace CalorieCounter.Shared.Models
 		public int Calories { get; set; }
         //public decimal? Fat { get; set; }
         //public int? Carbohydrates { get; set; }
-		public DateTime? Date { get; set; }
+		public DateTime Date { get; set; }
 
 		public User User { get; set; }
 	}

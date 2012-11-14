@@ -12,144 +12,182 @@ namespace CalorieCounter.Shared.Design
 	{
 		public async Task<User> GetUser(string emailAddress)
 		{
-			var user = new User() { Name = "James Churchill", Email = "james@smashdev.com", Username = "jchurchill" };
+			return GetUser();
+		}
 
-			user.DailyTargets.Add(
+		internal static User GetUser()
+		{
+			var dailyTargets = new List<DailyTarget>();
+			//dailyTargets.Add(
+			//	new DailyTarget()
+			//	{
+			//		Calories = 1850
+			//	});
+			dailyTargets.Add(
 				new DailyTarget()
 				{
-					UserID = user.UserID,
-					Calories = 1850
-				});
-			user.DailyTargets.Add(
-				new DailyTarget()
-				{
-					UserID = user.UserID,
 					Calories = 1850,
-					Date = new DateTime(2012, 11, 6)
+					Date = new DateTime(2012, 8, 1)
 				});
-			user.DailyTargets.Add(
-				new DailyTarget()
-				{
-					UserID = user.UserID,
-					Calories = 1850,
-					Date = new DateTime(2012, 11, 7)
-				});
-			user.DailyTargets.Add(
-				new DailyTarget()
-				{
-					UserID = user.UserID,
-					Calories = 1850,
-					Date = new DateTime(2012, 11, 8)
-				});
+			//dailyTargets.Add(
+			//	new DailyTarget()
+			//	{
+			//		Calories = 1850,
+			//		Date = new DateTime(2012, 11, 7)
+			//	});
+			//dailyTargets.Add(
+			//	new DailyTarget()
+			//	{
+			//		Calories = 1850,
+			//		Date = new DateTime(2012, 11, 8)
+			//	});
 
-			user.Weights.Add(
+			var weights = new List<UserWeight>();
+			weights.Add(
 				new UserWeight()
 				{
-					UserID = user.UserID,
 					Weight = 217.8m,
-					Date = new DateTime(2012, 11, 6)
-				});
-			user.Weights.Add(
-				new UserWeight()
-				{
-					UserID = user.UserID,
-					Weight = 216.8m,
 					Date = new DateTime(2012, 11, 7)
 				});
-			user.Weights.Add(
+			weights.Add(
 				new UserWeight()
 				{
-					UserID = user.UserID,
-					Weight = 218.6m,
+					Weight = 216.8m,
 					Date = new DateTime(2012, 11, 8)
+				});
+			weights.Add(
+				new UserWeight()
+				{
+					Weight = 218.6m,
+					Date = new DateTime(2012, 11, 9)
 				});
 
 			var mealTypeBreakfast = new MealType() { Name = "Breakfast" };
 			var mealTypeLunch = new MealType() { Name = "Lunch" };
 			var mealTypeDinner = new MealType() { Name = "Dinner" };
 			var mealTypeSnack = new MealType() { Name = "Snack" };
-			//context.MealTypes.AddOrUpdate(mt => mt.Name,
-			//	mealTypeBreakfast,
-			//	mealTypeLunch,
-			//	mealTypeDinner,
-			//	mealTypeSnack);
 
-			// JCTODO setup helper method to return collection of food items???
-			var foodItemCheerios = new FoodItem() { Name = "Cheerios", ServingSize = "1 cup", Calories = 150, UserID = user.UserID };
-			var foodItemTurkeySausage = new FoodItem() { Name = "Turkey Sausage", ServingSize = "1 sausage", Calories = 110, UserID = user.UserID };
-			var foodItemYogurt = new FoodItem() { Name = "Yogurt", ServingSize = "1 container", Calories = 90, UserID = user.UserID };
-			var foodItemCheeseStick = new FoodItem() { Name = "Cheese Stick", ServingSize = "1 stick", Calories = 80, UserID = user.UserID };
-			var foodItemPizza = new FoodItem() { Name = "Pizza", ServingSize = "1 slice", Calories = 300, UserID = user.UserID };
-			var foodItemDinnerRoll = new FoodItem() { Name = "Dinner Roll", ServingSize = "1 roll", Calories = 80, UserID = user.UserID };
-			var foodItemTortillaChips = new FoodItem() { Name = "Tortilla Chips", ServingSize = "9 chips", Calories = 140, UserID = user.UserID };
-			var foodItemGratedCheese = new FoodItem() { Name = "Grated Cheese", ServingSize = "1 oz", Calories = 120, UserID = user.UserID };
-			var foodItemSalsa = new FoodItem() { Name = "Salsa", ServingSize = "2 tbsp", Calories = 10, UserID = user.UserID };
-			var foodItemRiceCrispies = new FoodItem() { Name = "Rice Crispies", ServingSize = "1 1/4 cups", Calories = 180, UserID = user.UserID };
-			user.FoodItems.Add(foodItemCheerios);
-			user.FoodItems.Add(foodItemTurkeySausage);
-			user.FoodItems.Add(foodItemYogurt);
-			user.FoodItems.Add(foodItemCheeseStick);
-			user.FoodItems.Add(foodItemPizza);
-			user.FoodItems.Add(foodItemDinnerRoll);
-			user.FoodItems.Add(foodItemTortillaChips);
-			user.FoodItems.Add(foodItemGratedCheese);
-			user.FoodItems.Add(foodItemSalsa);
-			user.FoodItems.Add(foodItemRiceCrispies);
+			var foodItems = new List<FoodItem>();
+			var foodItemCheerios = AddFoodItem("Cheerios", "1 cup", 150, foodItems);
+			var foodItemTurkeySausage = AddFoodItem("Turkey Sausage", "1 sausage", 110, foodItems);
+			var foodItemYogurt = AddFoodItem("Yogurt", "1 container", 90, foodItems);
+			var foodItemCheeseStick = AddFoodItem("Cheese Stick", "1 stick", 80, foodItems);
+			var foodItemPizza = AddFoodItem("Pizza", "1 slice", 300, foodItems);
+			var foodItemDinnerRoll = AddFoodItem("Dinner Roll", "1 roll", 80, foodItems);
+			var foodItemTortillaChips = AddFoodItem("Tortilla Chips", "9 chips", 140, foodItems);
+			var foodItemGratedCheese = AddFoodItem("Grated Cheese", "1 oz", 120, foodItems);
+			var foodItemSalsa = AddFoodItem("Salsa", "2 tbsp", 10, foodItems);
+			var foodItemRiceCrispies = AddFoodItem("Rice Crispies", "1 1/4 cups", 180, foodItems);
+			var foodItemPumpkinBread = AddFoodItem("Pearl Bakery Pumpkin Bread", "1 slice", 200, foodItems);
+			var foodItemNewEnglandClamChowder = AddFoodItem("Campbell's New England Clam Chowder", "1 can", 420, foodItems);
+			var foodItemCornBread = AddFoodItem("Pearl Bakery Corn Bread", "1 slice", 200, foodItems);
+			var foodItemBeer = AddFoodItem("Beer", "1 bottle", 200, foodItems);
+			var foodItemChickenChowMein = AddFoodItem("Chicken Chow Mein", "1 cup", 100, foodItems);
+			var foodItemFriedNoodles = AddFoodItem("Fried Noodles", "1/2 cup", 130, foodItems);
+			var marriottHotelBreaksfast = AddFoodItem("Marriott Hotel Breakfast", null, 800, foodItems);
+			var marriottHotelLunch = AddFoodItem("Marriott Hotel Lunch", null, 800, foodItems);
+			var jumboOlives = AddFoodItem("Jumbo Olives", "3 olives", 25, foodItems);
+			var enchiladaSauce = AddFoodItem("Enchilada Sauce", "1/4 cup", 20, foodItems);
+			var tortilla = AddFoodItem("Tortilla", "1 tortilla", 150, foodItems);
+			var refriedBeans = AddFoodItem("Refried Beans", "1/2 cup", 100, foodItems);
+			var seasonedBeef = AddFoodItem("Seasoned Beef", "4 oz", 290, foodItems);
+			var gratedCheese = AddFoodItem("Grated Cheese", "1 oz", 120, foodItems);
+			var iceCream = AddFoodItem("Ice Cream", "1/2 cup", 140, foodItems);
+			var chocolateSyrup = AddFoodItem("Chocolate Syrup", "2 tbsp", 100, foodItems);
+			var banana = AddFoodItem("Banana", "1 banana", 100, foodItems);
 
-			// JCTODO setup helper method to add a log entry (accepts a params list of food items and serving sizes???)
+			var logEntries = new List<LogEntry>();
+			AddLogEntry(mealTypeBreakfast, "11/7/2012 7:00am", logEntries,
+				new LogEntryFoodItem(foodItemCheerios, 1m)
+			);
+			AddLogEntry(mealTypeLunch, "11/7/2012 1:00pm", logEntries,
+				new LogEntryFoodItem(foodItemTurkeySausage, 2m),
+				new LogEntryFoodItem(foodItemYogurt, 1m)
+			);
+			AddLogEntry(mealTypeSnack, "11/7/2012 4:00pm", logEntries,
+				new LogEntryFoodItem(foodItemCheeseStick, 1m)
+			);
+			AddLogEntry(mealTypeDinner, "11/7/2012 6:15pm", logEntries,
+				new LogEntryFoodItem(foodItemPizza, 1.5m)
+			);
+			AddLogEntry(mealTypeSnack, "11/7/2012 9:30pm", logEntries,
+				new LogEntryFoodItem(foodItemDinnerRoll, 2m)
+			);
+			AddLogEntry(mealTypeSnack, "11/7/2012 10:00pm", logEntries,
+				new LogEntryFoodItem(foodItemTortillaChips, 3m),
+				new LogEntryFoodItem(foodItemGratedCheese, 1m),
+				new LogEntryFoodItem(foodItemSalsa, 2m)
+			);
+			AddLogEntry(mealTypeSnack, "11/7/2012 10:30pm", logEntries,
+				new LogEntryFoodItem(foodItemRiceCrispies, 1m)
+			);
+
+			AddLogEntry(mealTypeBreakfast, "11/8/2012 10:00am", logEntries,
+				new LogEntryFoodItem(foodItemPumpkinBread, 1m)
+			);
+			AddLogEntry(mealTypeLunch, "11/8/2012 1:00pm", logEntries,
+				new LogEntryFoodItem(foodItemNewEnglandClamChowder, 1m),
+				new LogEntryFoodItem(foodItemYogurt, 1m)
+			);
+			AddLogEntry(mealTypeSnack, "11/8/2012 4:00pm", logEntries,
+				new LogEntryFoodItem(foodItemCheeseStick, 1m),
+				new LogEntryFoodItem(foodItemCornBread, 0.5m)
+			);
+			AddLogEntry(mealTypeSnack, "11/8/2012 6:00pm", logEntries,
+				new LogEntryFoodItem(foodItemBeer, 1m)
+			);
+			AddLogEntry(mealTypeSnack, "11/8/2012 8:00pm", logEntries,
+				new LogEntryFoodItem(foodItemChickenChowMein, 2m),
+				new LogEntryFoodItem(foodItemFriedNoodles, 3m)
+			);
+			AddLogEntry(mealTypeSnack, "11/8/2012 10:30pm", logEntries,
+				new LogEntryFoodItem(foodItemRiceCrispies, 1m)
+			);
+
+			AddLogEntry(mealTypeBreakfast, "11/9/2012 8:00am", logEntries,
+				new LogEntryFoodItem(marriottHotelBreaksfast, 1m)
+			);
+			AddLogEntry(mealTypeLunch, "11/9/2012 12:00pm", logEntries,
+				new LogEntryFoodItem(marriottHotelLunch, 1m)
+			);
+			AddLogEntry(mealTypeDinner, "11/9/2012 6:15pm", logEntries,
+				new LogEntryFoodItem(jumboOlives, 4m),
+				new LogEntryFoodItem(enchiladaSauce, 4.5m),
+				new LogEntryFoodItem(tortilla, 2m),
+				new LogEntryFoodItem(refriedBeans, 3m),
+				new LogEntryFoodItem(seasonedBeef, 0.5m),
+				new LogEntryFoodItem(gratedCheese, 2m)
+			);
+			AddLogEntry(mealTypeSnack, "11/9/2012 10:00pm", logEntries,
+				new LogEntryFoodItem(iceCream, 2m),
+				new LogEntryFoodItem(chocolateSyrup, 1m),
+				new LogEntryFoodItem(banana, 0.5m)
+			);
+			AddLogEntry(mealTypeSnack, "11/9/2012 11:00pm", logEntries,
+				new LogEntryFoodItem(foodItemRiceCrispies, 1m)
+			);
+
+			return new User("jchurchill", "James Churchill", "james@smashdev.com", dailyTargets, weights, foodItems, logEntries);
+		}
+		private static FoodItem AddFoodItem(string name, string servingSize, int calories, List<FoodItem> foodItems)
+		{
+			var foodItem = new FoodItem() { Name = name, ServingSize = servingSize, Calories = calories };
+			foodItems.Add(foodItem);
+			return foodItem;
+		}
+		private static void AddLogEntry(MealType mealType, string dateTime, List<LogEntry> logEntries, params LogEntryFoodItem[] logEntryFoodItems)
+		{
 			var logEntry = new LogEntry()
 			{
-				UserID = user.UserID,
-				MealType = mealTypeBreakfast,
-				DateTimeUTC = DateTime.Parse("11/7/2012 7:00am").ToUniversalTime()
+				MealType = mealType,
+				DateTimeUTC = DateTime.SpecifyKind(DateTime.Parse(dateTime), DateTimeKind.Local).ToUniversalTime()
 			};
-			logEntry.LogEntryFoodItems.Add(new LogEntryFoodItem()
+			foreach (var logEntryFoodItem in logEntryFoodItems)
 			{
-				FoodItemID = foodItemCheerios.FoodItemID,
-				LogEntryID = logEntry.LogEntryID,
-				Serving = 1m
-			});
-			user.LogEntries.Add(logEntry);
-
-
-
-			//7:00am	Cheerios	1	1 cup	150	150
-			//1:00pm	Turkey Sausage	2	1 sausage	110	220
-			//	Yogurt	1	1 container	100	100
-			//4:00pm	Cheese Stick	1		80	80
-			//6:15pm	Pizza	1.5	1 slice	300	450
-			//9:30pm	Dinner Rolls	2	1 roll	80	160
-			//10:00pm	Tortilla Chips	3	9 chips	140	420
-			//	Grated Cheese	1	1 oz	120	120
-			//	Salsa	2	2 tbsp	10	20
-			//10:30pm	Rice Crispies	1	1 1/4 cups	180	180
-
-			//10:00am	Pearl Bakery Pumpkin Bread	1	1 slice	200	200
-			//1:00pm	Campbell's New England Clam Chowder	1	1 can	420	420
-			//	Yogurt	1	1 container	100	100
-			//4:00pm	Cheese Stick	1		80	80
-			//	Pearl Bakery Corn Bread	0.5	1 slice	200	100
-			//6:00pm	Beer	1	1 bottle	200	200
-			//8:00pm	Chicken Chow Mein	2	1 cup	100	200
-			//	Fried Noodles	3	1/2 cup	130	390
-			//10:30pm	Rice Crispies	1	1 1/4 cups	180	180
-
-			//8:00am	Marriott Hotel Breakfast	1		800	800
-			//	Marriott Hotel Lunch	1		800	800
-			//6:15pm	Jumbo Olives	4	3 olives	25	100
-			//	Enchilada Sauce	4.5	1/4 cup	20	90
-			//	Tortilla	2	1 tortilla	150	300
-			//	Refried Beans	3	1/2 cup	100	300
-			//	Seasoned Beef	0.5	4 oz	290	145
-			//	Grated Cheese	2	1 oz	120	240
-			//10:00pm	Ice Cream	2	1/2 cup	140	280
-			//	Chocolate Syrup	1	2 tbsp	100	100
-			//	Banana	0.5	1 banana	100	50
-			//11:00pm	Rice Crispies	1	1 1/4 cups	180	180
-
-
-
-			return user;
+				logEntryFoodItem.LogEntry = logEntry;
+				logEntry.LogEntryFoodItems.Add(logEntryFoodItem);
+			}
+			logEntries.Add(logEntry);
 		}
 	}
 }

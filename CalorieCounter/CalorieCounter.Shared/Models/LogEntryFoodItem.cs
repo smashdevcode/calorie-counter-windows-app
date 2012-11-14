@@ -8,6 +8,12 @@ namespace CalorieCounter.Shared.Models
 {
 	public class LogEntryFoodItem
 	{
+		public LogEntryFoodItem(FoodItem foodItem, decimal serving)
+		{
+			this.FoodItem = foodItem;
+			this.Serving = serving;
+		}
+
 		public int LogEntryFoodItemID { get; set; }
 		public int LogEntryID { get; set; }
 		public int FoodItemID { get; set; }

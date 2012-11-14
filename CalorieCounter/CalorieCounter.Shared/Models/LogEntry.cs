@@ -18,6 +18,13 @@ namespace CalorieCounter.Shared.Models
 		public int UserID { get; set; }
 		public int MealTypeID { get; set; }
 		public DateTime DateTimeUTC { get; set; }
+		public DateTime DateTime
+		{
+			get
+			{
+				return this.DateTimeUTC.ToLocalTime();
+			}
+		}
 
 		public User User { get; set; }
 		public MealType MealType { get; set; }

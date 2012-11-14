@@ -4,6 +4,8 @@ using CalorieCounter.Shared.Data;
 using CalorieCounter.Shared.Helpers;
 using GalaSoft.MvvmLight.Command;
 using CalorieCounter.Shared.Models;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CalorieCounter.WindowsApp.ViewModel
 {
@@ -46,8 +48,6 @@ namespace CalorieCounter.WindowsApp.ViewModel
 			////}
 		}
 
-
-
 		#region LoadUserCommand
 		private RelayCommand _loadUserCommand;
 		public RelayCommand LoadUserCommand
@@ -62,101 +62,72 @@ namespace CalorieCounter.WindowsApp.ViewModel
 		{
 			var user = await _dataService.GetUser("james@smashdev.com");
 			this.User = user;
-			if (user.LogEntries.Count > 0)
-				this.CurrentLogEntry = user.LogEntries[0];
+			this.CurrentLogEntryDate = user.LogEntryDates[0];
 		}
 		#endregion
 
-
-
-		public User User { get; set; }
-
-		#region CurrentLogEntry
+		#region User
 		/// <summary>
-		/// The <see cref="CurrentLogEntry" /> property's name.
+		/// The <see cref="User" /> property's name.
 		/// </summary>
-		public const string CurrentLogEntryPropertyName = "CurrentLogEntry";
+		public const string UserPropertyName = "User";
 
-		private LogEntry _currentLogEntry = null;
+		private User _user = null;
 
 		/// <summary>
-		/// Sets and gets the CurrentLogEntry property.
+		/// Sets and gets the User property.
 		/// Changes to that property's value raise the PropertyChanged event. 
 		/// </summary>
-		public LogEntry CurrentLogEntry
+		public User User
 		{
 			get
 			{
-				return _currentLogEntry;
+				return _user;
 			}
 
 			set
 			{
-				if (_currentLogEntry == value)
+				if (_user == value)
 				{
 					return;
 				}
 
-				RaisePropertyChanging(CurrentLogEntryPropertyName);
-				_currentLogEntry = value;
-				RaisePropertyChanged(CurrentLogEntryPropertyName);
+				RaisePropertyChanging(UserPropertyName);
+				_user = value;
+				RaisePropertyChanged(UserPropertyName);
 			}
 		}
 		#endregion
 
-		//// JCTODO move this into the model???
-
-		//#region Date
-		///// <summary>
-		///// The <see cref="Date" /> property's name.
-		///// </summary>
-		//public const string DatePropertyName = "Date";
-
-		//private DateTime? _date = null;
-
-		///// <summary>
-		///// Sets and gets the Date property.
-		///// Changes to that property's value raise the PropertyChanged event. 
-		///// </summary>
-		//public DateTime? Date
-		//{
-		//	get
-		//	{
-		//		return _date;
-		//	}
-
-		//	set
-		//	{
-		//		if (_date == value)
-		//		{
-		//			return;
-		//		}
-
-		//		RaisePropertyChanging(DatePropertyName);
-		//		_date = value;
-		//		RaisePropertyChanged(DatePropertyName);
-		//		RaisePropertyChanged(DateFormattedPropertyName);
-		//	}
-		//}
-		//#endregion
-
-		#region DateFormatted
+		#region CurrentLogEntryDate
 		/// <summary>
-		/// The <see cref="DateFormatted" /> property's name.
+		/// The <see cref="CurrentLogEntryDate" /> property's name.
 		/// </summary>
-		public const string DateFormattedPropertyName = "DateFormatted";
+		public const string CurrentLogEntryDatePropertyName = "CurrentLogEntryDate";
+
+		private LogEntryDate _currentLogEntryDate = null;
 
 		/// <summary>
-		/// Gets the Date property as a formatted string.
+		/// Sets and gets the CurrentLogEntryDate property.
+		/// Changes to that property's value raise the PropertyChanged event. 
 		/// </summary>
-		public string DateFormatted
+		public LogEntryDate CurrentLogEntryDate
 		{
 			get
 			{
-				if (this.CurrentLogEntry != null)
-					return this.CurrentLogEntry.DateTimeUTC.ToString("M/d");
-				else
-					return null;
+				return _currentLogEntryDate;
+			}
+
+			set
+			{
+				if (_currentLogEntryDate == value)
+				{
+					return;
+				}
+
+				RaisePropertyChanging(CurrentLogEntryDatePropertyName);
+				_currentLogEntryDate = value;
+				RaisePropertyChanged(CurrentLogEntryDatePropertyName);
 			}
 		}
 		#endregion
